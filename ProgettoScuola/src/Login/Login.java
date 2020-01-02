@@ -22,6 +22,13 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
+import ArgoApi.*;
+import ArgoApi.Eccezioni.AccessoNonRiuscito;
+import SchermataPrincipale.App;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Vincenzo
@@ -92,6 +99,17 @@ public class Login extends JFrame {
         String username=textFieldUsername.getText();
         String password= new String(textFieldPassword.getPassword());
         System.out.println("codice scuola: "+CodiceScuola+" username: "+username+" Password: "+password);
+        ArgoApi api= new ArgoApi(CodiceScuola, username, password);
+        try {
+            api.accedi();
+            new App(api);
+            this.dispose();
+        } catch (IOException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (AccessoNonRiuscito ex) {
+            //Da fare mettere popup
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     
