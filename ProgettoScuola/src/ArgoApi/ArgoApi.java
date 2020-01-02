@@ -25,27 +25,49 @@ import org.json.*;
  * @author Vincenzo
  */
 public class ArgoApi {
-    private final String endPoint="https://www.portaleargo.it/famiglia/api/rest/";
-    private String authToken;
-    private final String chiaveArgo="ax6542sdru3217t4eesd9";
+    private final String endPoint="https://www.portaleargo.it/famiglia/api/rest/";//indirizzo api Rest portaleArgo
+    
+    private String authToken;//token di autorizzazione utente
+    
+    private final String chiaveArgo="ax6542sdru3217t4eesd9";//chiave rest
+    
     private final String versioneArgo="2.1.0";
+    
     private final String produttore="ARGO Software s.r.l. - Ragusa";
+    
     private final String codiceApp="APF";
+    
     private final String uA="Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36";
-    private final String codiceScuola;
+    
+    private final String codiceScuola; //codice della scuola
+    
     private final String username;
+    
     private final String password;
-    private boolean loggedIn=false;
+    
+    private boolean loggedIn=false; //indica se l'accesso è stato eseguito
+    
+    //variabili necessare per poter fare richieste all'api
     private int prgAlunno;
+    
     private int prgScuola;
+    
     private int prgScheda;
+    //-------------------------------------------------------------------------
+    
     public ArgoApi(String codiceScuola, String username, String password) {
+        
         this.codiceScuola = new String(codiceScuola);
+        
         this.username = new String(username);
+        
         this.password = new String(password);
     }
 
     public void accedi() throws IOException, AccessoNonRiuscito{
+        /*
+            metodo per accedere e effettuare la richiesta del token utente 
+        */
         try {
             BufferedReader reader;
             String line;
@@ -53,37 +75,58 @@ public class ArgoApi {
             URL Login=new URL(this.endPoint+"login");
             HttpURLConnection con=(HttpURLConnection) Login.openConnection();
             
-            //setup
+            //setup header
             con.setRequestMethod("GET");
+            
             con.setRequestProperty("x-key-app", chiaveArgo);
+            
             con.setRequestProperty("x-version", versioneArgo);
+            
             con.setRequestProperty("x-produttore-software", produttore);
+            
             con.setRequestProperty("x-app-code", codiceApp);
+            
             con.setRequestProperty("x-cod-min", codiceScuola);
+            
             con.setRequestProperty("x-user-id", username);
+            
             con.setRequestProperty("x-pwd", password);
-            con.setRequestProperty("User-Agent", uA);     
-            int status=con.getResponseCode();
-            if(status>299){
-                reader= new BufferedReader(new InputStreamReader(con.getErrorStream()));
-                while((line=reader.readLine())!= null){
-                    resp.append(line);
-                    throw new AccessoNonRiuscito();
+            
+            con.setRequestProperty("User-Agent", uA); 
+            //---------------------------------------------------
+            int status=con.getResponseCode();//stato della response
+            
+            if(status>299){//c'è stato un errore
+                reader= new BufferedReader(new InputStreamReader(con.getErrorStream()));//inizializzo il buffer
+                
+                while((line=reader.readLine())!= null){//leggo il body della response
+                    
+                    resp.append(line);                          
                 }
-                reader.close();
-            }else{
-                reader= new BufferedReader(new InputStreamReader(con.getInputStream()));
-                while((line=reader.readLine())!= null){
-                    resp.append(line);
+                
+                reader.close();//chiudo il buffer
+                System.err.println(resp.toString());
+                throw new AccessoNonRiuscito();
+            }else{//la richiesta è avvenuta con successo
+                
+                reader= new BufferedReader(new InputStreamReader(con.getInputStream()));//inizializzo il buffer
+                
+                while((line=reader.readLine())!= null){//leggo il body della response
+                    resp.append(line);  
                 }
+                
                 reader.close();
-                JSONObject response=new JSONObject(resp.toString());
+                
+                JSONObject response=new JSONObject(resp.toString());//creo oggetto json dalla response
+                
                 this.authToken=response.getString("token");
+                
                 this.loggedIn=true;
-                this.getSchede();
+                
+                this.getSchede();//recupero la scheda utente da argo
             }
         } catch (MalformedURLException ex) {
-            System.out.println("er");
+             Logger.getLogger(ArgoApi.class.getName()).log(Level.SEVERE, null, ex);
         } catch (AccessoNonEffettuato ex) {
             Logger.getLogger(ArgoApi.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -91,6 +134,7 @@ public class ArgoApi {
     }
     
       private void getSchede() throws IOException,AccessoNonEffettuato{
+          //metodo per richiedere la scheda utente da argo
         if(loggedIn){
             try {
                 BufferedReader reader;
@@ -99,7 +143,7 @@ public class ArgoApi {
                 URL Login=new URL(this.endPoint+"schede");
                 HttpURLConnection con=(HttpURLConnection) Login.openConnection();
             
-                //setup
+                //setup header
                 con.setRequestMethod("GET");
                 con.setRequestProperty("x-key-app", chiaveArgo);
                 con.setRequestProperty("x-version", versioneArgo);
@@ -108,16 +152,20 @@ public class ArgoApi {
                 con.setRequestProperty("x-cod-min", codiceScuola);
                 con.setRequestProperty("x-auth-token", authToken);
                 con.setRequestProperty("User-Agent", uA);  
+                //-------------------------------------------------------------
+                
                 int status=con.getResponseCode();
-                if(status>299){
-                    reader= new BufferedReader(new InputStreamReader(con.getErrorStream()));
+                if(status>299){//c'è stato un errore
+                    reader= new BufferedReader(new InputStreamReader(con.getErrorStream()));//inizializzo il buffer
+                    
                     while((line=reader.readLine())!= null){
                         resp.append(line);
                     }
+                    
                     reader.close();
                     System.err.println(resp.toString());
-                }else{
-                    reader= new BufferedReader(new InputStreamReader(con.getInputStream()));
+                }else{//la richiesta è avvenuta con successo
+                    reader= new BufferedReader(new InputStreamReader(con.getInputStream()));//
                     while((line=reader.readLine())!= null){
                         resp.append(line);
                     }
@@ -145,7 +193,7 @@ public class ArgoApi {
                 URL Login=new URL(this.endPoint+"votigiornalieri");
                 HttpURLConnection con=(HttpURLConnection) Login.openConnection();
             
-                //setup
+                //setup header
                 con.setRequestMethod("GET");
                 con.setRequestProperty("x-key-app", chiaveArgo);
                 con.setRequestProperty("x-version", versioneArgo);
@@ -158,14 +206,19 @@ public class ArgoApi {
                 con.setRequestProperty("x-prg-scuola",Integer.toString(prgScuola));
                 con.setRequestProperty("x-auth-token", authToken);
                 con.setRequestProperty("User-Agent", uA);  
+                //----------------------------------------------------------------
+                
                 int status=con.getResponseCode();
+                
                 if(status>299){
                     reader= new BufferedReader(new InputStreamReader(con.getErrorStream()));
+                    
                     while((line=reader.readLine())!= null){
                         resp.append(line);
                     }
                     reader.close();
                     System.err.println(resp.toString());
+                    
                 }else{
                     reader= new BufferedReader(new InputStreamReader(con.getInputStream()));
                     while((line=reader.readLine())!= null){
@@ -179,8 +232,9 @@ public class ArgoApi {
                         JSONObject voto=votiJSON.getJSONObject(i);
                         
                         try{
-                        Voto v=new Voto(voto.getString("desMateria"),voto.getDouble("decValore"), voto.getString("datGiorno"));
-                        voti.insCoda(v);
+                        Voto v=new Voto(voto.getString("desMateria"),voto.getDouble("decValore"), voto.getString("datGiorno"));//creo oggetto voto
+                        voti.insCoda(v);//inserisco il voto nella lista
+                        
                         }catch(JSONException e){
                             
                         }
@@ -188,7 +242,7 @@ public class ArgoApi {
                     return voti;
                 }   
             } catch (MalformedURLException ex) {
-                System.out.println("er");
+                Logger.getLogger(ArgoApi.class.getName()).log(Level.SEVERE, null, ex);
             }
         }else{
             throw new AccessoNonEffettuato();

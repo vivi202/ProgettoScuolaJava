@@ -32,7 +32,6 @@ public class App extends JFrame{
         pannelloP.add(sinistra);
         pannelloP.add(destra);
         sinistra.add(new PannelloTabella(api));
-        destra.add(new PannelloTabella(api));
         this.setVisible(true);
     }
     
