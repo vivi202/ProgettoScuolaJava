@@ -73,10 +73,9 @@ public class Login extends JFrame {
         codice.setHorizontalAlignment(JLabel.CENTER);
         codice.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(codice);
-        textFieldCodice.setMaximumSize(new Dimension(getWidth(),10));
-        textFieldUsername.setMaximumSize(new Dimension(getWidth(),10));
-        textFieldPassword.setMaximumSize(new Dimension(getWidth(), 10));
-        textFieldCodice.setMaximumSize(new Dimension(getWidth(),10));
+        textFieldCodice.setMaximumSize(new Dimension(Short.MAX_VALUE,10));
+        textFieldUsername.setMaximumSize(new Dimension(Short.MAX_VALUE,10));
+        textFieldPassword.setMaximumSize(new Dimension(Short.MAX_VALUE, 10));
         this.add(textFieldCodice);
         this.add(Box.createVerticalGlue());
         username.setAlignmentX(Component.CENTER_ALIGNMENT);

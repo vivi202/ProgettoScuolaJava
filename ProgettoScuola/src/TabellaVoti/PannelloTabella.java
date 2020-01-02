@@ -8,6 +8,7 @@ package TabellaVoti;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import ArgoApi.*;
+import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import javax.swing.JScrollPane;
 /**
@@ -20,7 +21,7 @@ public class PannelloTabella extends JPanel{
     private ArgoApi api;
     
     public PannelloTabella(ArgoApi api){
-        this.setLayout(new FlowLayout());
+        this.setLayout(new BorderLayout());
         this.api=api;
         modello=new ModelloTabellaVoti(this.api);
         tabella=new JTable(modello);
