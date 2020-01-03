@@ -25,7 +25,7 @@ public class App extends JFrame{
     public App(ArgoApi api) throws HeadlessException {
         this.api = api;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setBounds(0, 0, 500, 500);
+        this.setBounds(0, 0, 1000, 500);
         JPanel pannelloP=(JPanel)this.getContentPane();
         pannelloP.setLayout(new BoxLayout(pannelloP,BoxLayout.X_AXIS));
         JPanel sinistra=new JPanel();
@@ -44,7 +44,7 @@ public class App extends JFrame{
             valori[i]=5.0;
         }
         
-        ModelloGraficoABarre modello=new ModelloGraficoABarre(label, valori);
+        ModelloGraficoABarre modello=new ModelloGraficoABarre(label, valori);//si passa un vettore di stringhe e i valori che vanno da 0 a 10
         destra.add(new PannelloGraficoABarre(30, modello));
         this.setVisible(true);
     }
