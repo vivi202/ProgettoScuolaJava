@@ -26,6 +26,7 @@ public class App extends JFrame{
         this.api = api;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setBounds(0, 0, 1000, 500);
+        this.setMinimumSize(new Dimension(800, 500));
         JPanel pannelloP=(JPanel)this.getContentPane();
         pannelloP.setLayout(new BoxLayout(pannelloP,BoxLayout.X_AXIS));
         JPanel sinistra=new JPanel();
@@ -41,7 +42,7 @@ public class App extends JFrame{
         
         for (int i = 0; i < 10; i++) {
             label[i]="materia"+i;
-            valori[i]=5.0;
+            valori[i]=i;
         }
         
         ModelloGraficoABarre modello=new ModelloGraficoABarre(label, valori);//si passa un vettore di stringhe e i valori che vanno da 0 a 10
