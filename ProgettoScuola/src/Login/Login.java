@@ -97,7 +97,7 @@ public class Login extends JFrame {
         String CodiceScuola=textFieldCodice.getText();
         String username=textFieldUsername.getText();
         String password= new String(textFieldPassword.getPassword());
-        System.out.println("codice scuola: "+CodiceScuola+" username: "+username+" Password: "+password);
+        //System.out.println("codice scuola: "+CodiceScuola+" username: "+username+" Password: "+password);
         ArgoApi api= new ArgoApi(CodiceScuola, username, password);
         try {
             api.accedi();
