@@ -41,8 +41,8 @@ public class App extends JFrame{
         double[] valori= new double[10];
         
         for (int i = 0; i < 10; i++) {
-            label[i]="materia"+i;
-            valori[i]=i;
+            label[i]="materia"+i+1;
+            valori[i]=i+1-0.5;
         }
         
         ModelloGraficoABarre modello=new ModelloGraficoABarre(label, valori);//si passa un vettore di stringhe e i valori che vanno da 0 a 10
