@@ -35,11 +35,11 @@ public class PannelloGraficoABarre extends JPanel{
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
-        g.setColor(Color.gray);
-        g.fillRect(this.padding, this.padding, getWidth()-padding*2, this.getHeight()-this.padding*2);
+        g.setColor(Color.white);
+        g.fillRect(this.padding, this.padding, getWidth()-padding*2, this.getHeight()-this.padding*2);//area grafico
         g.setColor(Color.BLACK);
-        g.drawLine(padding+labelPadding, padding, padding+labelPadding, getHeight()-padding-labelPadding);
-        g.drawLine(padding+labelPadding, getHeight()-padding-labelPadding, getWidth()-padding-1, getHeight()-padding-labelPadding);
+        g.drawLine(padding+labelPadding, padding, padding+labelPadding, getHeight()-padding-labelPadding);//asse y
+        g.drawLine(padding+labelPadding, getHeight()-padding-labelPadding, getWidth()-padding-1, getHeight()-padding-labelPadding);//asse x
         d=(getHeight()-padding*2-labelPadding*2)/10;
         larg=(getWidth()-(padding*2+labelPadding*2))/modello.getLenght()-padding/2;
         for(int i=0;i<10;i++){
