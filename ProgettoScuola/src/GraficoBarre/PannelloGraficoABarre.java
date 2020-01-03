@@ -40,15 +40,22 @@ public class PannelloGraficoABarre extends JPanel{
         g.setColor(Color.BLACK);
         g.drawLine(padding+labelPadding, padding, padding+labelPadding, getHeight()-padding-labelPadding);//asse y
         g.drawLine(padding+labelPadding, getHeight()-padding-labelPadding, getWidth()-padding-1, getHeight()-padding-labelPadding);//asse x
-        d=(getHeight()-padding*2-labelPadding*2)/10;
-        larg=(getWidth()-(padding*2+labelPadding*2))/modello.getLenght()-padding/2;
+        d=(getHeight()-padding*2-labelPadding*2)/10;//unita di misura
+        
+        larg=(getWidth()-(padding*2+labelPadding*2))/modello.getLenght()-padding/2;//larghezza di una barra
+        
         for(int i=0;i<10;i++){
+            /*
+             disegno le tacche e i numeri
+            */
             g.drawString(Integer.toString(10-i), padding+labelPadding/2,labelPadding+padding+i*d);
+            
             g.drawLine(padding+labelPadding-5,(labelPadding+padding)+i*d,padding+labelPadding,labelPadding+padding+i*d);
+            
         }
         int x=padding*2+labelPadding;
-        for(int i=1;i<=modello.getLenght();i++){
-            disegnaBarra(g,x,modello.getValore(i-1),modello.getLabel(i-1),new Color(255, 0, 0));
+        for(int i=0;i<modello.getLenght();i++){
+            disegnaBarra(g,x,modello.getValore(i),modello.getLabel(i),new Color(255, 0, 0));
             x+=(larg+padding/2);
         }
     }
