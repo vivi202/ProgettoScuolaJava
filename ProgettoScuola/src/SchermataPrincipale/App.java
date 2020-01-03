@@ -8,8 +8,11 @@ package SchermataPrincipale;
 import java.awt.HeadlessException;
 import javax.swing.JFrame;
 import ArgoApi.*;
+import GraficoBarre.ModelloGraficoABarre;
+import GraficoBarre.PannelloGraficoABarre;
 import TabellaVoti.PannelloTabella;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 /**
@@ -27,11 +30,22 @@ public class App extends JFrame{
         pannelloP.setLayout(new BoxLayout(pannelloP,BoxLayout.X_AXIS));
         JPanel sinistra=new JPanel();
         sinistra.setLayout(new BoxLayout(sinistra, BoxLayout.Y_AXIS));
+        sinistra.setMaximumSize(new Dimension(Short.MAX_VALUE,Short.MAX_VALUE));
         JPanel destra=new JPanel();
         destra.setLayout(new BoxLayout(destra, BoxLayout.Y_AXIS));
         pannelloP.add(sinistra);
         pannelloP.add(destra);
         sinistra.add(new PannelloTabella(api));
+        String[] label=new String[10];
+        double[] valori= new double[10];
+        
+        for (int i = 0; i < 10; i++) {
+            label[i]="materia"+i;
+            valori[i]=5.0;
+        }
+        
+        ModelloGraficoABarre modello=new ModelloGraficoABarre(label, valori);
+        destra.add(new PannelloGraficoABarre(30, modello));
         this.setVisible(true);
     }
     
