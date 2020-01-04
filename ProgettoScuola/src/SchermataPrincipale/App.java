@@ -26,7 +26,7 @@ public class App extends JFrame{
         this.api = api;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setBounds(0, 0, 1000, 500);
-        this.setMinimumSize(new Dimension(800, 500));
+        this.setMinimumSize(new Dimension(900, 500));
         JPanel pannelloP=(JPanel)this.getContentPane();
         pannelloP.setLayout(new BoxLayout(pannelloP,BoxLayout.X_AXIS));
         JPanel sinistra=new JPanel();
@@ -41,7 +41,7 @@ public class App extends JFrame{
         double[] valori= new double[10];
         
         for (int i = 0; i < 10; i++) {
-            label[i]="materia"+i+1;
+            label[i]="materia"+(i+1);
             valori[i]=i+1-0.5;
         }
         

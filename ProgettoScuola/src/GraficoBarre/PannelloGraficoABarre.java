@@ -20,7 +20,7 @@ import javax.swing.JPanel;
  */
 public class PannelloGraficoABarre extends JPanel{
     private int padding;
-    private int labelPadding=40;
+    private int labelPadding=60;
     private int d;
     private int larg;
     private ModelloGraficoABarre modello;
