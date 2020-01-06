@@ -5,28 +5,31 @@
  */
 package GraficoBarre;
 
+import TabellaMedie.ModelloTabellaMedie;
+import java.awt.Color;
+
 /**
  *
  * @author Vincenzo
  */
 public class ModelloGraficoABarre {
-    private String[] label;
-    private double [] valori;
-
-    public ModelloGraficoABarre(String[] label, double [] valori) {
-        this.label = label;
-        this.valori = valori;
+    private ModelloTabellaMedie modello;
+    public ModelloGraficoABarre(ModelloTabellaMedie modello) {
+        this.modello=modello;
     }
     
     public int getLenght(){
-        return label.length;
+        return modello.getRowCount();
     }
     
     public double getValore(int pos){
-        return this.valori[pos];
+        return modello.getMedia(pos).getPunteggio();
     }
     
     public String getLabel(int pos){
-        return this.label[pos];
+        return "";
+    }
+    public Color getColore(int i){
+        return modello.getColore(i);
     }
 }

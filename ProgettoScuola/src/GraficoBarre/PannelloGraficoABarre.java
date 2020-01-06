@@ -55,7 +55,7 @@ public class PannelloGraficoABarre extends JPanel{
         }
         int x=padding*2+labelPadding;
         for(int i=0;i<modello.getLenght();i++){
-            disegnaBarra(g,x,modello.getValore(i),modello.getLabel(i),new Color(255, 0, 0));
+            disegnaBarra(g,x,modello.getValore(i),modello.getLabel(i),modello.getColore(i));
             x+=(larg+padding/2);
         }
     }

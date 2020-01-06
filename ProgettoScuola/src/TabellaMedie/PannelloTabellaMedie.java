@@ -3,37 +3,41 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package TabellaVoti;
+package TabellaMedie;
 
-import javax.swing.JPanel;
 import javax.swing.JTable;
 import ArgoApi.*;
-import TabellaMedie.TabellaMedieRender;
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.FlowLayout;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.table.AbstractTableModel;
 /**
  *
  * @author Vincenzo
  */
-public class PannelloTabella extends JPanel{
+public class PannelloTabellaMedie extends JPanel{
     private JTable tabella;
-    private ModelloTabellaVoti modello;
+    private ModelloTabellaMedie modello;
     private ArgoApi api;
-    
-    public PannelloTabella(ArgoApi api){
+
+    public PannelloTabellaMedie(ArgoApi api) {
         this.setLayout(new BorderLayout());
         this.api=api;
-        modello=new ModelloTabellaVoti(this.api);
-        tabella=new JTable(modello);
+        this.modello=new ModelloTabellaMedie(api);
+        this.tabella=new JTable(modello);
+        for(int i=0;i<tabella.getColumnCount();i++){
+            tabella.setDefaultRenderer(tabella.getColumnClass(i), new TabellaMedieRender());
+        }
         JScrollPane Js=new JScrollPane(tabella);
-        JLabel titolo=new JLabel("Voti");
+        JLabel titolo=new JLabel("Medie");
         titolo.setHorizontalAlignment(JLabel.CENTER);
         titolo.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(titolo,BorderLayout.PAGE_START);
-        this.add(Js);
+        this.add(Js,BorderLayout.CENTER);
     }
-    
+    public ModelloTabellaMedie getModello(){
+        return this.modello;
+    }
 }
