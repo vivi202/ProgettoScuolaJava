@@ -24,9 +24,9 @@ public class App extends JFrame{
 
     public App(ArgoApi api) throws HeadlessException {
         this.api = api;
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setBounds(0, 0, 1000, 500);
         this.setMinimumSize(new Dimension(900, 500));
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel pannelloP=(JPanel)this.getContentPane();
         pannelloP.setLayout(new BoxLayout(pannelloP,BoxLayout.X_AXIS));
         JPanel sinistra=new JPanel();

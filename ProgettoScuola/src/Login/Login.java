@@ -24,6 +24,7 @@ import javax.swing.border.EmptyBorder;
 
 import ArgoApi.*;
 import ArgoApi.Eccezioni.AccessoNonRiuscito;
+import Login.finestreErrore.FinestraAccessoNonRiuscito;
 import SchermataPrincipale.App;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -47,7 +48,8 @@ public class Login extends JFrame {
     private JButton login;
     
     public Login() throws HeadlessException {
-        this.setBounds(0,0, 500, 500);
+      this.setMinimumSize(new Dimension(500,500));
+       this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         codice=new JLabel("Codice Scuola:");
@@ -74,8 +76,11 @@ public class Login extends JFrame {
         codice.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(codice);
         textFieldCodice.setMaximumSize(new Dimension(Short.MAX_VALUE,10));
+        textFieldCodice.setHorizontalAlignment(JTextField.CENTER);
         textFieldUsername.setMaximumSize(new Dimension(Short.MAX_VALUE,10));
+        textFieldUsername.setHorizontalAlignment(JTextField.CENTER);
         textFieldPassword.setMaximumSize(new Dimension(Short.MAX_VALUE, 10));
+        textFieldPassword.setHorizontalAlignment(JTextField.CENTER);
         this.add(textFieldCodice);
         this.add(Box.createVerticalGlue());
         username.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -107,6 +112,7 @@ public class Login extends JFrame {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         } catch (AccessoNonRiuscito ex) {
             //Da fare mettere popup
+            new FinestraAccessoNonRiuscito(this,"errore");
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
