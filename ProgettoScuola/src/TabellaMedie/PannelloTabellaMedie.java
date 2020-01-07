@@ -27,6 +27,7 @@ public class PannelloTabellaMedie extends JPanel{
         this.api=api;
         this.modello=new ModelloTabellaMedie(api);
         this.tabella=new JTable(modello);
+        tabella.getTableHeader().setReorderingAllowed(false);
         for(int i=0;i<tabella.getColumnCount();i++){
             tabella.setDefaultRenderer(tabella.getColumnClass(i), new TabellaMedieRender());
         }

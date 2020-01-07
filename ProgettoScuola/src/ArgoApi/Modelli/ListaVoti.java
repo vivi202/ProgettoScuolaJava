@@ -66,4 +66,30 @@ public class ListaVoti {
         else
             return p.getInf();
     }
+    
+        public int getNumMaterie(){
+        int pos=0;
+        boolean app[]=new boolean[this.getLung()];
+        
+        for(int i=0;i<this.getLung();i++){
+            app[i]=false;
+        }
+        
+        for(int i=0;i<this.getLung();i++){
+            if(app[i]==false){
+                Voto v=this.getIndex(i);
+                for(int j=i;j<this.getLung();j++){
+                    if(app[j]==false){
+                        Voto c=this.getIndex(j);
+                        if(v.getMateria().compareTo(c.getMateria())==0){
+                            app[j]=true;
+                        }
+                    }
+                }
+                pos++;
+            }
+            app[i]=true;
+        }
+        return pos;
+    }
 }
