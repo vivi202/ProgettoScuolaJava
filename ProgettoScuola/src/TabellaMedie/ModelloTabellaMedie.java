@@ -27,8 +27,8 @@ public class ModelloTabellaMedie extends AbstractTableModel{
         try {
             this.api=api;
             this.voti=this.api.getVoti();
-            medie=new Voto[9];
-            colori=new Color[9];
+            medie=new Voto[voti.getNumMaterie()+1];
+            colori=new Color[voti.getNumMaterie()+1];
             for(int i=0;i<colori.length;i++){
                 Random rand = new Random();
                 float r = rand.nextFloat();
@@ -36,7 +36,8 @@ public class ModelloTabellaMedie extends AbstractTableModel{
                 float b = rand.nextFloat();
                 colori[i]=new Color(r,g,b);
             }
-            Media();
+            MediaPerMaterie();
+            MediaTotale();
         } catch (IOException ex) {
             Logger.getLogger(ModelloTabellaMedie.class.getName()).log(Level.SEVERE, null, ex);
         } catch (AccessoNonEffettuato ex) {
@@ -44,7 +45,7 @@ public class ModelloTabellaMedie extends AbstractTableModel{
         }
     }
     
-    public void Media(){
+    public void MediaPerMaterie(){
         double med;
         int cont;
         int pos=0;
@@ -77,6 +78,19 @@ public class ModelloTabellaMedie extends AbstractTableModel{
                 medie[pos++]=new Voto(v.getMateria(), med, "");
             }
             app[i]=true;
+        }
+    }
+    public void MediaTotale(){
+        int cont=0;
+        double media=0;
+        for(int i=0;i<medie.length;i++){
+            if(medie[i]==null){
+                medie[i]=new Voto("Totale", media/cont, "");
+            }else{
+                Voto v=medie[i];
+                media+=v.getPunteggio();
+                cont++;
+            }
         }
     }
     public void stampaMed(){
