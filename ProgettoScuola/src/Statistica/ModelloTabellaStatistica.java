@@ -5,6 +5,7 @@
  */
 package Statistica;
 
+import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -12,20 +13,36 @@ import javax.swing.table.AbstractTableModel;
  * @author marturanovin
  */
 public class ModelloTabellaStatistica extends AbstractTableModel{
-
+    private JTable tabellaMedie;
+    private String[] nomi={"Parametro","Valore"};
+    
     @Override
     public int getRowCount() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return 2;
     }
 
     @Override
     public int getColumnCount() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return nomi.length;
     }
 
     @Override
-    public Object getValueAt(int i, int i1) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object getValueAt(int row, int col) {
+        switch(col){
+            case 0:{
+                if(row==0)
+                    return "Deviazione standard";
+                else if(row==1)
+                    return "mediana";
+            }
+            case 1:return 0;
+            default:return "";      
+        }
+    }
+
+    @Override
+    public String getColumnName(int i) {
+        return nomi[i];
     }
     
 }

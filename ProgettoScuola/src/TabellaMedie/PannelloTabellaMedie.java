@@ -12,6 +12,7 @@ import java.awt.Component;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.AbstractTableModel;
 /**
  *
@@ -31,6 +32,7 @@ public class PannelloTabellaMedie extends JPanel{
         for(int i=0;i<tabella.getColumnCount();i++){
             tabella.setDefaultRenderer(tabella.getColumnClass(i), new TabellaMedieRender());
         }
+        tabella.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         JScrollPane Js=new JScrollPane(tabella);
         JLabel titolo=new JLabel("Medie");
         titolo.setHorizontalAlignment(JLabel.CENTER);
@@ -41,4 +43,9 @@ public class PannelloTabellaMedie extends JPanel{
     public ModelloTabellaMedie getModello(){
         return this.modello;
     }
+
+    public JTable getTabella() {
+        return tabella;
+    }
+    
 }
