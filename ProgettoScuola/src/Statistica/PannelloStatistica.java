@@ -10,10 +10,14 @@ import TabellaMedie.TabellaMedieRender;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
+import javafx.scene.control.SelectionModel;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -26,9 +30,11 @@ public class PannelloStatistica extends JPanel{
     public PannelloStatistica(JTable tabellaMedie) {
         this.tabellaMedie = tabellaMedie;
         this.setLayout(new BorderLayout());
-        this.modello=new ModelloTabellaStatistica();
+        this.modello=new ModelloTabellaStatistica((ModelloTabellaMedie)tabellaMedie.getModel());
         this.tabella=new JTable(modello);
-//        tabella.getTableHeader().setReorderingAllowed(false);
+        tabella.getTableHeader().setReorderingAllowed(false);
+        ListSelectionModel sel=tabellaMedie.getSelectionModel();
+        sel.addListSelectionListener(new SelectionListener(modello,this.tabellaMedie));
         JScrollPane Js=new JScrollPane(tabella);
         JLabel titolo=new JLabel("Statistica");
         titolo.setHorizontalAlignment(JLabel.CENTER);

@@ -140,4 +140,10 @@ public class ModelloTabellaMedie extends AbstractTableModel{
     public Color getColore(int i){
         return colori[i];
     }
+
+    public ListaVoti getVoti() {
+        return voti;
+    }
+    
+    
 }

@@ -5,6 +5,9 @@
  */
 package Statistica;
 
+import ArgoApi.Modelli.ListaVoti;
+import ArgoApi.Modelli.Voto;
+import TabellaMedie.ModelloTabellaMedie;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
@@ -13,8 +16,13 @@ import javax.swing.table.AbstractTableModel;
  * @author marturanovin
  */
 public class ModelloTabellaStatistica extends AbstractTableModel{
-    private JTable tabellaMedie;
+    private ModelloTabellaMedie modTabMedie;
     private String[] nomi={"Parametro","Valore"};
+    private double deviazioneStandard;
+    private double mediana;
+    public ModelloTabellaStatistica(ModelloTabellaMedie modTabMedie) {
+        this.modTabMedie = modTabMedie;
+    }
     
     @Override
     public int getRowCount() {
@@ -35,7 +43,13 @@ public class ModelloTabellaStatistica extends AbstractTableModel{
                 else if(row==1)
                     return "mediana";
             }
-            case 1:return 0;
+            case 1:{
+                if(row==0){
+                    return String.format("%.3f",deviazioneStandard);
+                }else if(row==1){
+                    return mediana;
+                }
+            }
             default:return "";      
         }
     }
@@ -44,5 +58,50 @@ public class ModelloTabellaStatistica extends AbstractTableModel{
     public String getColumnName(int i) {
         return nomi[i];
     }
+
+    public double getDeviazioneStandard() {
+        return deviazioneStandard;
+    }
+
+    public void setDeviazioneStandard(double deviazioneStandard) {
+        this.deviazioneStandard = deviazioneStandard;
+    }
+
+    public double getMediana() {
+        return mediana;
+    }
+
+    public void setMediana(double mediana) {
+        this.mediana = mediana;
+    }
     
+    public void calcolaDeviazioneStandard(String materia,double media){
+        if(materia.compareTo("Totale")==0){
+            ListaVoti voti=modTabMedie.getVoti();
+            int cont=0;
+            double varianza=0;
+            for(int i=0;i<voti.getLung();i++){
+                Voto v=voti.getIndex(i);
+                if(v.getPunteggio()>1){
+                    varianza+=Math.pow(v.getPunteggio()-media, 2);
+                    cont++;
+                }
+                
+            }
+            this.setDeviazioneStandard(Math.sqrt(varianza/=cont));;
+        }else{
+            ListaVoti voti=modTabMedie.getVoti();
+            int cont=0;
+            double varianza=0; 
+            for(int i=0;i<voti.getLung();i++){
+                Voto v=voti.getIndex(i);
+                if(v.getMateria().compareTo(materia)==0&&v.getPunteggio()>1){
+                    varianza+=Math.pow(v.getPunteggio()-media, 2);
+                    cont++;
+                }
+                
+            }
+            this.setDeviazioneStandard(Math.sqrt(varianza/=cont));;
+        }
+    }
 }
