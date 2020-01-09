@@ -106,31 +106,57 @@ public class ModelloTabellaStatistica extends AbstractTableModel{
     
     public void calcolaMediana(String materia){
         ListaVoti voti=modTabMedie.getVoti();
-        double[] ordinato=new double[voti.getLung()];
+        Voto[] ordinato=new Voto[voti.getLung()];
         for(int i=0;i<ordinato.length;i++){
-            ordinato[i]=voti.getIndex(i).getPunteggio();
+            ordinato[i]=voti.getIndex(i);
         }
         bubbleSort(ordinato);
-        for(int i=0;i<ordinato.length;i++){
-            System.out.print(ordinato[i]+" ");
-        }
         if(materia.compareTo("Totale")==0){
             
+        }else{
+           Voto[] votiMateria=new Voto[this.contaVoti(materia)];
+           for(int i=0;i<ordinato.length;i++){
+               if(ordinato[i].getMateria().compareTo(materia)==0){
+                   inserisci(ordinato[i],votiMateria);
+                   System.out.println(ordinato[i]);
+               }
+           }
+           if(votiMateria.length % 2 == 0){
+               this.setMediana(votiMateria[votiMateria.length/2].getPunteggio()+votiMateria[votiMateria.length/2+1].getPunteggio()/2);
+           }else{
+               this.setMediana((votiMateria.length+1)/2);
+           }
         }
     }
     
-    public void bubbleSort(double[] vett){
+    public void bubbleSort(Voto[] vett){
         boolean scambio=false;
         do{
             scambio=false;
             for(int i=0;i<vett.length-1;i++){
-                if(vett[i]>vett[i+1]){
-                    double app=vett[i];
+                if(vett[i].getPunteggio()>vett[i+1].getPunteggio()){
+                    Voto app=vett[i];
                     vett[i]=vett[i+1];
                     vett[i+1]=app;
                     scambio=true;
                 }
             }
         }while(scambio);
+    }
+    
+    public int contaVoti(String m){
+        ListaVoti voti=modTabMedie.getVoti();
+        int cont=0;
+        for(int i=0;i<voti.getLung();i++){
+            if(voti.getIndex(i).getMateria().compareTo(m)==0)cont++;
+        }
+        return cont;
+    }
+    public void inserisci(Voto x,Voto[] ord){
+        int pos=0;
+        while(ord[pos]!=null&&pos<ord.length){
+            pos++;
+        }
+        ord[pos]=new Voto(x);
     }
 }

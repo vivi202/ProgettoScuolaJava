@@ -20,6 +20,12 @@ public class Voto {
         this.data = new String(data);
     }
 
+    public Voto(Voto x) {
+        this(x.getMateria(),x.getPunteggio(),x.getData());
+    }
+
+    
+    
     public String getMateria() {
         return materia;
     }
