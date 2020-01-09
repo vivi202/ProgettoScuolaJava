@@ -18,9 +18,9 @@ public class ListaVoti {
     
     public void insTesta(Voto inf){
         Nodo p=new Nodo(inf);
-        if(testa==null){
+        if(this.testa==null)
             this.testa=p;
-        }else{
+        else{
             p.setLink(testa);
             this.testa=p;
         }

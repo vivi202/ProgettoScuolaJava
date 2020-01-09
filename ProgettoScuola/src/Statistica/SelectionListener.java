@@ -34,7 +34,7 @@ public class SelectionListener implements ListSelectionListener{
             int riga=sel.getLeadSelectionIndex();
             String materia=(String)tabellaMedie.getValueAt(riga, 0);
             mod.calcolaDeviazioneStandard(materia,Double.parseDouble((String)tabellaMedie.getValueAt(riga, 1)));
-            mod.setMediana(riga+1);
+            mod.calcolaMediana(materia);
             mod.fireTableDataChanged();
         }
     }

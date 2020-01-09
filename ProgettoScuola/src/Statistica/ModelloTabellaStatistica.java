@@ -8,7 +8,6 @@ package Statistica;
 import ArgoApi.Modelli.ListaVoti;
 import ArgoApi.Modelli.Voto;
 import TabellaMedie.ModelloTabellaMedie;
-import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -103,5 +102,35 @@ public class ModelloTabellaStatistica extends AbstractTableModel{
             }
             this.setDeviazioneStandard(Math.sqrt(varianza/=cont));;
         }
+    }
+    
+    public void calcolaMediana(String materia){
+        ListaVoti voti=modTabMedie.getVoti();
+        double[] ordinato=new double[voti.getLung()];
+        for(int i=0;i<ordinato.length;i++){
+            ordinato[i]=voti.getIndex(i).getPunteggio();
+        }
+        bubbleSort(ordinato);
+        for(int i=0;i<ordinato.length;i++){
+            System.out.print(ordinato[i]+" ");
+        }
+        if(materia.compareTo("Totale")==0){
+            
+        }
+    }
+    
+    public void bubbleSort(double[] vett){
+        boolean scambio=false;
+        do{
+            scambio=false;
+            for(int i=0;i<vett.length-1;i++){
+                if(vett[i]>vett[i+1]){
+                    double app=vett[i];
+                    vett[i]=vett[i+1];
+                    vett[i+1]=app;
+                    scambio=true;
+                }
+            }
+        }while(scambio);
     }
 }

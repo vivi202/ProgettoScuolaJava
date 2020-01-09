@@ -10,14 +10,11 @@ import TabellaMedie.TabellaMedieRender;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
-import javafx.scene.control.SelectionModel;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 /**
  *
