@@ -28,6 +28,10 @@ public class PannelloTabella extends JPanel{
         this.api=api;
         modello=new ModelloTabellaVoti(this.api);
         tabella=new JTable(modello);
+        tabella.getTableHeader().setReorderingAllowed(false);
+          for(int i=0;i<tabella.getColumnCount();i++){
+            tabella.setDefaultRenderer(tabella.getColumnClass(i), new TabellaVotiRender());
+        }
         JScrollPane Js=new JScrollPane(tabella);
         JLabel titolo=new JLabel("Voti");
         titolo.setHorizontalAlignment(JLabel.CENTER);
