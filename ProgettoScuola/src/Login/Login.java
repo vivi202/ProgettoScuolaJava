@@ -35,65 +35,75 @@ import java.util.logging.Logger;
  * @author Vincenzo
  */
 public class Login extends JFrame {
-    private JLabel codice;
-    private JLabel username;
-    private JLabel password;
+    private final JLabel codice;
+    private final JLabel username;
+    private final JLabel password;
             
-    private JTextField textFieldCodice;
+    private final JTextField textFieldCodice;
     
-    private JTextField textFieldUsername;
+    private final JTextField textFieldUsername;
     
-    private JPasswordField textFieldPassword;
+    private final JPasswordField textFieldPassword;
     
-    private JButton login;
+    private final JButton login;
     
     public Login() throws HeadlessException {
-      this.setMinimumSize(new Dimension(500,500));
-       this.setLocationRelativeTo(null);
+        this.setMinimumSize(new Dimension(500,500));
+        this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         codice=new JLabel("Codice Scuola:");
+        codice.setAlignmentX(Component.CENTER_ALIGNMENT);//allinea la label al centro
+        codice.setHorizontalAlignment(JLabel.CENTER);//allinea il testo al centro della label
+        
         username=new JLabel("Username:");
+        username.setAlignmentX(Component.CENTER_ALIGNMENT);//allinea la label al centro
+        username.setHorizontalAlignment(JLabel.CENTER);//allinea il testo al centro della label
+        
         password=new JLabel("password: ");
+        password.setAlignmentX(Component.CENTER_ALIGNMENT);//allinea la label al centro
+        password.setHorizontalAlignment(JLabel.CENTER);//allinea il testo al centro della label
         
         textFieldCodice=new JTextField();
+        textFieldCodice.setMaximumSize(new Dimension(Short.MAX_VALUE,10));//imposta la dimensione massima
+        textFieldCodice.setHorizontalAlignment(JTextField.CENTER);//allinea il testo del TextField al centro
+        
         textFieldUsername=new JTextField();
+        textFieldUsername.setMaximumSize(new Dimension(Short.MAX_VALUE,10));//imposta la dimensione massima
+        textFieldUsername.setHorizontalAlignment(JTextField.CENTER);//allinea il testo del TextField al centro
+        
         textFieldPassword=new JPasswordField();
+        textFieldPassword.setMaximumSize(new Dimension(Short.MAX_VALUE, 10));//imposta la dimensione massima
+        textFieldPassword.setHorizontalAlignment(JTextField.CENTER);//allinea il testo del TextField al centro
         
         login=new JButton("login");
-        
-        login.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-               login();
-            }
+        login.setAlignmentX(Component.CENTER_ALIGNMENT);
+        login.addActionListener((ActionEvent ae) -> {
+            login();
         });
+        
         //imposto il layout manager
         JPanel pannelloPrincipale=(JPanel) this.getContentPane();
-        pannelloPrincipale.setLayout(new BoxLayout(pannelloPrincipale, BoxLayout.Y_AXIS));
-        pannelloPrincipale.setBorder(new EmptyBorder(10, 10, 10, 10));
-        codice.setHorizontalAlignment(JLabel.CENTER);
-        codice.setAlignmentX(Component.CENTER_ALIGNMENT);
-        this.add(codice);
-        textFieldCodice.setMaximumSize(new Dimension(Short.MAX_VALUE,10));
-        textFieldCodice.setHorizontalAlignment(JTextField.CENTER);
-        textFieldUsername.setMaximumSize(new Dimension(Short.MAX_VALUE,10));
-        textFieldUsername.setHorizontalAlignment(JTextField.CENTER);
-        textFieldPassword.setMaximumSize(new Dimension(Short.MAX_VALUE, 10));
-        textFieldPassword.setHorizontalAlignment(JTextField.CENTER);
-        this.add(textFieldCodice);
-        this.add(Box.createVerticalGlue());
-        username.setAlignmentX(Component.CENTER_ALIGNMENT);
-        username.setHorizontalAlignment(JLabel.CENTER);
+        pannelloPrincipale.setLayout(new BoxLayout(pannelloPrincipale, BoxLayout.Y_AXIS));//imposto il layout manager
+        pannelloPrincipale.setBorder(new EmptyBorder(10, 10, 10, 10));//aggiungo un bordo vuoto
+        
+
+        
+        this.add(codice);//aggiungo la JLabel codice all pannello 
+        this.add(textFieldCodice);//aggiungo il JTextField codice all pannell 
+        
+        this.add(Box.createVerticalGlue());//spaziatore di componenti
+        
         this.add(username);
         this.add(textFieldUsername);
-        this.add(Box.createVerticalGlue());
-        password.setAlignmentX(Component.CENTER_ALIGNMENT);
-        password.setHorizontalAlignment(JLabel.CENTER);
-        login.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+        this.add(Box.createVerticalGlue());//spaziatore di componenti
+        
         this.add(password);
         this.add(textFieldPassword);
-        this.add(Box.createVerticalGlue());
+        
+        this.add(Box.createVerticalGlue());//spaziatore di componenti
+        
         this.add(login);
         this.setVisible(true);
     }
