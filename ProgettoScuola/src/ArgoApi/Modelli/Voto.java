@@ -55,8 +55,5 @@ public class Voto {
     @Override
     public String toString() {
         return "Voto{" + "materia=" + materia + ", punteggio=" + punteggio + ", data=" + data + '}';
-    }
-    
-    
-    
+    }   
 }
