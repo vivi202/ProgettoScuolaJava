@@ -34,7 +34,6 @@ public class ModelloTabellaVoti extends AbstractTableModel{
         
     }
     
-    
     @Override
     public int getRowCount() {
         return voti.getLung();
@@ -49,8 +48,6 @@ public class ModelloTabellaVoti extends AbstractTableModel{
     public String getColumnName(int i) {
         return nomi[i]; //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
     
     @Override
     public Object getValueAt(int row, int col) {
@@ -67,7 +64,5 @@ public class ModelloTabellaVoti extends AbstractTableModel{
     public Class<?> getColumnClass(int i) {
         return getValueAt(i, i).getClass(); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
-    
+
 }

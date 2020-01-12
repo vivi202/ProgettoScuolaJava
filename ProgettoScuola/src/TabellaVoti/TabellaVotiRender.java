@@ -27,6 +27,4 @@ public class TabellaVotiRender extends DefaultTableCellRenderer {
         return super.getTableCellRendererComponent(tabella, o, bln, bln1, row, col); //To change body of generated methods, choose Tools | Templates.
     }
     
-    
-    
 }

@@ -41,7 +41,7 @@ public class App extends JFrame{
         pannelloP.add(destra);
         sinistra.add(new PannelloTabella(api));
         PannelloTabellaMedie PannelloMedie=new PannelloTabellaMedie(api);
-        ModelloGraficoABarre modello=new ModelloGraficoABarre(PannelloMedie.getModello());//si passa un vettore di stringhe e i valori che vanno da 0 a 10
+        ModelloGraficoABarre modello=new ModelloGraficoABarre(PannelloMedie.getModello());//si passa il modello del pannelloMedie
         destra.add(new PannelloGraficoABarre(30, modello));
         sinistra.add(PannelloMedie);
         sinistra.add(new PannelloStatistica(PannelloMedie.getTabella()));

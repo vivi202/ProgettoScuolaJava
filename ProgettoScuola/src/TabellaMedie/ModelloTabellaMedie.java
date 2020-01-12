@@ -93,11 +93,6 @@ public class ModelloTabellaMedie extends AbstractTableModel{
             }
         }
     }
-    public void stampaMed(){
-        for (int i = 0; i < medie.length; i++) {
-            if(medie[i]!=null)System.out.println(medie[i].toString());
-        }
-    }
 
     @Override
     public int getRowCount() {
@@ -144,6 +139,5 @@ public class ModelloTabellaMedie extends AbstractTableModel{
     public ListaVoti getVoti() {
         return voti;
     }
-    
     
 }
