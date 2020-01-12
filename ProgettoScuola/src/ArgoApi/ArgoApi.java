@@ -99,8 +99,7 @@ public class ArgoApi {
             if(status>299){//c'è stato un errore
                 reader= new BufferedReader(new InputStreamReader(con.getErrorStream()));//inizializzo il buffer
                 
-                while((line=reader.readLine())!= null){//leggo il body della response
-                    
+                while((line=reader.readLine())!= null){//leggo il body della response  
                     resp.append(line);                          
                 }
                 
