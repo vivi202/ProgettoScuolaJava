@@ -118,14 +118,10 @@ public class ModelloTabellaStatistica extends AbstractTableModel{
            for(int i=0;i<ordinato.length;i++){
                if(ordinato[i].getMateria().compareTo(materia)==0){
                    inserisci(ordinato[i],votiMateria);
-                   System.out.println(ordinato[i]);
                }
            }
            if(votiMateria.length % 2 == 0){
-               System.out.println((votiMateria[(votiMateria.length-1)/2].getPunteggio()));
-               System.out.println(votiMateria[votiMateria.length/2].getPunteggio());
                this.setMediana((votiMateria[(votiMateria.length-1)/2].getPunteggio()+votiMateria[votiMateria.length/2].getPunteggio())/2);
-               System.out.println((votiMateria[(votiMateria.length-1)/2].getPunteggio()+votiMateria[votiMateria.length/2].getPunteggio())/2);
            }else{
                this.setMediana(votiMateria[votiMateria.length/2].getPunteggio());
            }
