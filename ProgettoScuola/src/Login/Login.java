@@ -26,6 +26,8 @@ import ArgoApi.*;
 import ArgoApi.Eccezioni.AccessoNonRiuscito;
 import Login.finestreErrore.FinestraAccessoNonRiuscito;
 import SchermataPrincipale.App;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,7 +36,7 @@ import java.util.logging.Logger;
  *
  * @author Vincenzo
  */
-public class Login extends JFrame {
+public class Login extends JFrame implements KeyListener{
     private final JLabel codice;
     private final JLabel username;
     private final JLabel password;
@@ -51,7 +53,6 @@ public class Login extends JFrame {
         this.setMinimumSize(new Dimension(500,500));
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
         codice=new JLabel("Codice Scuola:");
         codice.setAlignmentX(Component.CENTER_ALIGNMENT);//allinea la label al centro
         codice.setHorizontalAlignment(JLabel.CENTER);//allinea il testo al centro della label
@@ -75,6 +76,7 @@ public class Login extends JFrame {
         textFieldPassword=new JPasswordField();
         textFieldPassword.setMaximumSize(new Dimension(Short.MAX_VALUE, 10));//imposta la dimensione massima
         textFieldPassword.setHorizontalAlignment(JTextField.CENTER);//allinea il testo del TextField al centro
+        textFieldPassword.addKeyListener(this);
         
         login=new JButton("login");
         login.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -122,9 +124,29 @@ public class Login extends JFrame {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         } catch (AccessoNonRiuscito ex) {
             //Da fare mettere popup
+            login.setEnabled(true);
             new FinestraAccessoNonRiuscito(this,"errore");
+            
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent ke) {
+        
+    }
+
+    @Override
+    public void keyPressed(KeyEvent ke) {
+       if(ke.getKeyCode()==KeyEvent.VK_ENTER){
+           login.setEnabled(false);
+           this.login();
+       }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent ke) {
+        
     }
     
     
